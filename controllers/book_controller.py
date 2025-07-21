@@ -61,3 +61,7 @@ async def get_book_by_id(book_id: str):
         return None
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Error {str(e)}')
+
+
+async delete_book_by_is(book: BookCreate):
+    return book
