@@ -94,7 +94,7 @@ async def update_book(book_id: str, book_data: BookCreate):
 async def delete_one_book(book_id: str):
     try:
         if not ObjectId.is_valid(book_id):
-            raise HTTPException(state_code=400, detail='id no valido')
+            raise Exception(state_code=400, detail='PRODUCTO NO VALIDO')
         
         result = await book_collection.delete_one({'_id': ObjectId(book_id)})
         if result.deleted_count == 1:
