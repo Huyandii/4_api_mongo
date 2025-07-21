@@ -91,7 +91,7 @@ async def update_book(book_id: str, book_data: BookCreate):
     
 
 # DELETE BOOK
-async def delete_one_book(book_id: str):
+async def delete_book_by_id(book_id: str):
     try:
         if not ObjectId.is_valid(book_id):
             raise HTTPException(state_code=400, detail='id no valido')
