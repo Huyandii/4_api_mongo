@@ -49,8 +49,10 @@ async def get_book_list():
 
 
 
-# Cntrolador para tener ruta por id
 
+
+
+# Cntrolador para tener ruta por id
 async def get_book_by_id(book_id: str):
     try:
         if not ObjectId.is_valid(book_id):
@@ -61,3 +63,28 @@ async def get_book_by_id(book_id: str):
         return None
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Error {str(e)}')
+    
+
+
+
+
+# Controlador de ACTUALIZAR RUTA
+async def update_book(book_id: str, book_data: BookCreate):
+    try:
+
+        if not ObjectId.is_valid(book_id):
+            raise HTTPException(status_code=400, detail='EL ID NO ES VALIDO')
+        
+        result = await book_collection.update_one(
+            {'_id': ObjectId(book_id)},
+            {'$set': book_data.model_dump()} 
+        )
+
+        if result.modified_count == 0: 
+            return None
+        
+        update = await book_collection.find_one({'_id': ObjectId(book_id)})
+        return book_helper(update)
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error{str(e)}')

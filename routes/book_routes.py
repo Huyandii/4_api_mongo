@@ -26,7 +26,8 @@ async def get_book_list():
 async def get_book_by_id(book_id: str):
     return await book_controller.get_book_by_id(book_id)
 
+
 # PUT BY ID para actualizar libros
-@router.put('/{if_book}', status_code=200)
-async def update_book(book_id:str):
-    return await book_controller.update_book(book_id)
+@router.put('/{book_id}', status_code=200)
+async def update_book(book_id:str, book_data: BookCreate):
+    return await book_controller.update_book(book_id, book_data)
