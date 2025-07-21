@@ -42,3 +42,8 @@ async def get_book_list():
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Error {str(e)}')
+    
+
+
+
+# Cob¡
