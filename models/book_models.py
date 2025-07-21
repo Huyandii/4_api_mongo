@@ -6,7 +6,7 @@ class BookCreate(BaseModel):
     author: str
     year: int
     pages: Optional[int]
-
-class Book(BookCreate):#iporta todos los datos del BookCreate
-    id: int
+#iporta todos los datos del BookCreate
+class Book(BookCreate):
+    id: str
 

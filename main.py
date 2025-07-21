@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from routes import book_routes
 
-app = FastAPI
+app = FastAPI()
 
 # Ruta de acceso a los libros:
 

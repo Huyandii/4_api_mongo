@@ -1,8 +1,8 @@
-from fastapi import APIRoutes
+from fastapi import APIRouter
 from models.book_models import BookCreate, Book
 from controllers import book_controller
 
-router = APIRoutes()
+router = APIRouter()
 
 
 
