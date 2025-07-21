@@ -1,6 +1,9 @@
 from fastapi import HTTPException # Como vamos a contarnos con base de datos: importamos la conexion => la coleccion 
 from models.book_models import Book, BookCreate
 from db.mongo import book_collection
+from bson import ObjectId
+
+
 
 # Crear una funcion que nos permita convertir el tipo mongo (objeto) en una class Books de python, Vamos a crear una funcion llamada book_helper que transforma los datos de python a Mongo, Nuestra propia funcion de parseo
 def book_helper(book: dict) -> Book:
@@ -46,4 +49,15 @@ async def get_book_list():
 
 
 
-# Cob¡
+# Cntrolador para tener ruta por id
+
+async def get_book_by_id(book_id: str):
+    try:
+        if not ObjectId.is_valid(book_id):
+            raise HTTPException(status_code=400, detail='id no valido')
+        book = await book_collection.find_one({'_id': ObjectId(book_id)})
+        if book:
+            return book_helper(book)
+        return None
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error {str(e)}')
