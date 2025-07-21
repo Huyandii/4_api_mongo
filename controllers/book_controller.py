@@ -68,7 +68,7 @@ async def get_book_by_id(book_id: str):
 
 
 
-# Controlador de ACTUALIZAR RUTA
+# UPDATE BOOK
 async def update_book(book_id: str, book_data: BookCreate):
     try:
 
@@ -88,3 +88,20 @@ async def update_book(book_id: str, book_data: BookCreate):
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Error{str(e)}')
+    
+
+# DELETE BOOK
+async def delete_book_by_id(book_id: str):
+    try:
+        if not ObjectId.is_valid(book_id):
+            raise HTTPException(state_code=400, detail='id no valido')
+        
+        result = await book_collection.delete_one({'_id': ObjectId(book_id)})
+        if result.deleted_count == 1:
+            raise HTTPException(status_code=409, detail='No se ha borrado el libro, intentelo de nuevo')
+        
+        return {'msg': f'El libro con id {book_id} se ha borrado correctamente'}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error{str(e)}')
+    
